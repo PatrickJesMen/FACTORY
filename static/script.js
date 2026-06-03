@@ -53,3 +53,5 @@
 
   const firstLbl = document.querySelector('.sg.active .lbl');
   if (firstLbl) firstLbl.style.fill = 'rgba(255,255,255,0.85)';
+
+

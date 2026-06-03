@@ -6,15 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minerland</title>
 
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
 </head>
 
 <body>
 <main class="game-main-container">
     <div class="money-status-bar">
         <span class="money-currency-icon">$</span>
-        <span class="money-counter-value" id="money-counter">1,500</span>
+        <span hx-get="/tick" hx-trigger="every 1s" hx-swap="innerHTML">
+            {{ money }}
+        </span>
     </div>
 
     <div class="right-floating-menu">
@@ -114,7 +118,7 @@
             <h2 class="ore-display-name">Stone</h2>
             
             <div class="ore-click-zone">
-                <img src="../models/ores/stone.png" alt="Stone" class="ore-pixel-art-image">
+                <img src="{{ url_for('static', filename='models/ores/stone.png') }}" alt="Stone" class="ore-pixel-art-image">
             </div>
 
             <div class="health-bar-track">
@@ -125,7 +129,7 @@
     </div>
 </main>
 
-<script src="../static/script.js"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 
 </html>
