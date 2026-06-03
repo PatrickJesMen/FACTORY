@@ -7,14 +7,25 @@
     <title>Minerland</title>
 
     <link rel="stylesheet" href="../static/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-<main>
-    <div class="scene">
-        <div class="dial-outer">
-            <svg class="wheel-svg" viewBox="-160 -160 320 320" xmlns="http://www.w3.org/2000/svg">
+<main class="game-main-container">
+    <div class="money-status-bar">
+        <span class="money-currency-icon">$</span>
+        <span class="money-counter-value" id="money-counter">1,500</span>
+    </div>
+
+    <div class="right-floating-menu">
+        <div class="circular-menu-trigger">
+            <div class="hamburger-menu-lines"></div>
+        </div>
+    </div>
+
+    <div class="game-screen-wrapper">
+        <div class="left-wheel-menu-wrapper">
+            <svg class="wheel-menu-svg" viewBox="-160 -160 320 320" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <clipPath id="half-clip">
                         <rect x="0" y="-160" width="160" height="320" />
@@ -22,82 +33,95 @@
                 </defs>
 
                 <g id="wg">
-                    <g class="sg active" data-i="0" onclick="sel(0)">
-                        <path class="sf" d="M0,0 L140,0 A140,140 0 0,1 0,140 Z" fill="#F8FAFC" />
-                        <path class="sb" d="M0,0 L140,0 A140,140 0 0,1 0,140 Z" />
-                        <g class="sc" data-cx="70" data-cy="70">
+                    <g class="sg wheel-menu-segment active" data-i="0" onclick="sel(0)">
+                        <path class="segment-background-shape" d="M0,0 L140,0 A140,140 0 0,1 0,140 Z" />
+                        <path class="segment-border-stroke" d="M0,0 L140,0 A140,140 0 0,1 0,140 Z" />
+                        <g class="segment-icon-content" data-cx="70" data-cy="70">
                             <g transform="translate(70,62)">
-                                <rect class="icon-path" x="-18" y="-3" width="6" height="16" rx="1" />
-                                <rect class="icon-path" x="-8" y="-10" width="6" height="23" rx="1" />
-                                <rect class="icon-path" x="2" y="-6" width="6" height="19" rx="1" />
-                                <rect class="icon-path" x="12" y="-14" width="6" height="27" rx="1" />
+                                <rect class="segment-svg-icon-path" x="-18" y="-3" width="6" height="16" rx="1" />
+                                <rect class="segment-svg-icon-path" x="-8" y="-10" width="6" height="23" rx="1" />
+                                <rect class="segment-svg-icon-path" x="2" y="-6" width="6" height="19" rx="1" />
+                                <rect class="segment-svg-icon-path" x="12" y="-14" width="6" height="27" rx="1" />
                             </g>
                             <text x="70" y="95" text-anchor="middle" font-size="10" font-weight="600"
-                                letter-spacing="0.08em" font-family="Inter,system-ui,sans-serif" fill="#94A3B8"
-                                class="lbl" style="text-transform:uppercase">Stats</text>
+                                letter-spacing="0.08em" font-family="Inter,system-ui,sans-serif"
+                                class="segment-title-text" style="text-transform:uppercase">Stats</text>
                         </g>
                     </g>
 
-                    <g class="sg" data-i="1" onclick="sel(1)">
-                        <path class="sf" d="M0,0 L0,140 A140,140 0 0,1 -140,0 Z" fill="#F8FAFC" />
-                        <path class="sb" d="M0,0 L0,140 A140,140 0 0,1 -140,0 Z" />
-                        <g class="sc" data-cx="-70" data-cy="70">
+                    <g class="sg wheel-menu-segment" data-i="1" onclick="sel(1)">
+                        <path class="segment-background-shape" d="M0,0 L0,140 A140,140 0 0,1 -140,0 Z" />
+                        <path class="segment-border-stroke" d="M0,0 L0,140 A140,140 0 0,1 -140,0 Z" />
+                        <g class="segment-icon-content" data-cx="-70" data-cy="70">
                             <g transform="translate(-70,62)">
-                                <circle class="icon-path" cx="0" cy="-8" r="7" />
-                                <path class="icon-path" d="M-5,-1 C-5,4 5,4 5,-1" />
-                                <path class="icon-path" d="M-14,4 L-14,12 L14,12 L14,4" />
-                                <path class="icon-path" d="M-9,12 L-9,16 M9,12 L9,16" />
+                                <circle class="segment-svg-icon-path" cx="0" cy="-8" r="7" />
+                                <path class="segment-svg-icon-path" d="M-5,-1 C-5,4 5,4 5,-1" />
+                                <path class="segment-svg-icon-path" d="M-14,4 L-14,12 L14,12 L14,4" />
+                                <path class="segment-svg-icon-path" d="M-9,12 L-9,16 M9,12 L9,16" />
                             </g>
                             <text x="-70" y="95" text-anchor="middle" font-size="10" font-weight="600"
-                                letter-spacing="0.08em" font-family="Inter,system-ui,sans-serif" fill="#94A3B8"
-                                class="lbl" style="text-transform:uppercase">Mine</text>
+                                letter-spacing="0.08em" font-family="Inter,system-ui,sans-serif"
+                                class="segment-title-text" style="text-transform:uppercase">Mine</text>
                         </g>
                     </g>
 
-                    <g class="sg" data-i="2" onclick="sel(2)">
-                        <path class="sf" d="M0,0 L-140,0 A140,140 0 0,1 0,-140 Z" fill="#F8FAFC" />
-                        <path class="sb" d="M0,0 L-140,0 A140,140 0 0,1 0,-140 Z" />
-                        <g class="sc" data-cx="-70" data-cy="-70">
+                    <g class="sg wheel-menu-segment" data-i="2" onclick="sel(2)">
+                        <path class="segment-background-shape" d="M0,0 L-140,0 A140,140 0 0,1 0,-140 Z" />
+                        <path class="segment-border-stroke" d="M0,0 L-140,0 A140,140 0 0,1 0,-140 Z" />
+                        <g class="segment-icon-content" data-cx="-70" data-cy="-70">
                             <g transform="translate(-70,-78)">
-                                <path class="icon-path" d="M-8,8 L0,-8 L8,8" />
-                                <path class="icon-path" d="M-5,4 L0,-4 L5,4" />
-                                <line class="icon-path" x1="-12" y1="10" x2="12" y2="10" />
-                                <circle class="icon-path" cx="0" cy="-12" r="4" fill="none" />
+                                <path class="segment-svg-icon-path" d="M-8,8 L0,-8 L8,8" />
+                                <path class="segment-svg-icon-path" d="M-5,4 L0,-4 L5,4" />
+                                <line class="segment-svg-icon-path" x1="-12" y1="10" x2="12" y2="10" />
+                                <circle class="segment-svg-icon-path" cx="0" cy="-12" r="4" fill="none" />
                             </g>
                             <text x="-70" y="-48" text-anchor="middle" font-size="10" font-weight="600"
-                                letter-spacing="0.08em" font-family="Inter,system-ui,sans-serif" fill="#94A3B8"
-                                class="lbl" style="text-transform:uppercase">Upgrade</text>
+                                letter-spacing="0.08em" font-family="Inter,system-ui,sans-serif"
+                                class="segment-title-text" style="text-transform:uppercase">Upgrade</text>
                         </g>
                     </g>
 
-                    <g class="sg" data-i="3" onclick="sel(3)">
-                        <path class="sf" d="M0,0 L0,-140 A140,140 0 0,1 140,0 Z" fill="#F8FAFC" />
-                        <path class="sb" d="M0,0 L0,-140 A140,140 0 0,1 140,0 Z" />
-                        <g class="sc" data-cx="70" data-cy="-70">
+                    <g class="sg wheel-menu-segment" data-i="3" onclick="sel(3)">
+                        <path class="segment-background-shape" d="M0,0 L0,-140 A140,140 0 0,1 140,0 Z" />
+                        <path class="segment-border-stroke" d="M0,0 L0,-140 A140,140 0 0,1 140,0 Z" />
+                        <g class="segment-icon-content" data-cx="70" data-cy="-70">
                             <g transform="translate(70,-78)">
-                                <circle class="icon-path" cx="0" cy="-9" r="6" />
-                                <path class="icon-path" d="M-10,7 C-10,-1 10,-1 10,7" />
-                                <path class="icon-path" d="M-16,-6 C-16,-14 -8,-14 -8,-6" />
-                                <path class="icon-path" d="M-18,7 C-18,1 -12,1 -10,4" />
-                                <path class="icon-path" d="M16,-6 C16,-14 8,-14 8,-6" />
-                                <path class="icon-path" d="M18,7 C18,1 12,1 10,4" />
+                                <circle class="segment-svg-icon-path" cx="0" cy="-9" r="6" />
+                                <path class="segment-svg-icon-path" d="M-10,7 C-10,-1 10,-1 10,7" />
+                                <path class="segment-svg-icon-path" d="M-16,-6 C-16,-14 -8,-14 -8,-6" />
+                                <path class="segment-svg-icon-path" d="M-18,7 C-18,1 -12,1 -10,4" />
+                                <path class="segment-svg-icon-path" d="M16,-6 C16,-14 8,-14 8,-6" />
+                                <path class="segment-svg-icon-path" d="M18,7 C18,1 12,1 10,4" />
                             </g>
                             <text x="70" y="-48" text-anchor="middle" font-size="10" font-weight="600"
-                                letter-spacing="0.08em" font-family="Inter,system-ui,sans-serif" fill="#94A3B8"
-                                class="lbl" style="text-transform:uppercase">Worker</text>
+                                letter-spacing="0.08em" font-family="Inter,system-ui,sans-serif"
+                                class="segment-title-text" style="text-transform:uppercase">Worker</text>
                         </g>
                     </g>
                 </g>
 
-                <circle cx="0" cy="0" r="28" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="4" />
-                <circle cx="0" cy="0" r="15" fill="#2563EB" />
-                <circle cx="0" cy="0" r="5" fill="white" opacity="0.7" />
+                <circle cx="0" cy="0" r="28" class="wheel-center-disk-outer" />
+                <circle cx="0" cy="0" r="15" class="wheel-center-disk-inner" />
+                <circle cx="0" cy="0" r="5" class="wheel-center-dot" />
 
                 <g id="indicator" transform="translate(152, 0)">
-                    <polygon points="0,-9 14,0 0,9" fill="#2563EB" />
+                    <polygon points="0,-9 14,0 0,9" class="wheel-indicator-arrow" />
                 </g>
             </svg>
         </div>
+
+        <div class="center-mining-area">
+            <h2 class="ore-display-name">Stone</h2>
+            
+            <div class="ore-click-zone">
+                <img src="../models/ores/stone.png" alt="Stone" class="ore-pixel-art-image">
+            </div>
+
+            <div class="health-bar-track">
+                <div class="health-bar-progress" style="width: 100%;"></div>
+            </div>
+        </div>
+
     </div>
 </main>
 

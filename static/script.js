@@ -1,6 +1,6 @@
   const wg = document.getElementById('wg');
   const slices = document.querySelectorAll('.sg');
-  const contents = document.querySelectorAll('.sc');
+  const contents = document.querySelectorAll('.segment-icon-content');
   const labels = document.querySelectorAll('.lbl');
   let angle = 0;
 
