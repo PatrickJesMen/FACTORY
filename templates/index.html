@@ -117,12 +117,12 @@
         <div class="center-mining-area">
             <h2 class="ore-display-name">Stone</h2>
             
-            <div class="ore-click-zone">
+            <div class="ore-click-zone" hx-post="/mine" hx-swap="none">
                 <img src="{{ url_for('static', filename='models/ores/stone.png') }}" alt="Stone" class="ore-pixel-art-image">
             </div>
 
             <div class="health-bar-track">
-                <div class="health-bar-progress" style="width: 100%;"></div>
+                <div id="health-progress" hx-get="/health" hx-trigger="load" hx-swap="outerHTML"></div>
             </div>
         </div>
 

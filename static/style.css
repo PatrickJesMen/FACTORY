@@ -41,7 +41,8 @@ body {
     background-color: var(--color-bg-surface);
     font-family: 'Inter', system-ui, sans-serif;
     overflow: hidden;
-    cursor: url('../models/custom/normal_cursor.png'), auto;
+    /* Caminho corrigido para o cursor */
+    cursor: url('models/custom/normal_cursor.png'), auto;
 }
 
 .game-main-container {
@@ -98,7 +99,6 @@ body {
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
-
 }
 
 .circular-menu-trigger {
@@ -110,7 +110,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: url('../models/custom/point_cursor.png'), auto;
+    /* Caminho corrigido para o cursor */
+    cursor: url('models/custom/point_cursor.png'), auto;
     transition: transform 0.2s cubic-bezier(0.34, 1.45, 0.64, 1), box-shadow 0.2s;
     border: 2px solid var(--color-border);
 }
@@ -186,7 +187,8 @@ body {
 /* Hover Effect: Scales up smoothly by 8% without floating around */
 .ore-click-zone:hover .ore-pixel-art-image {
     transform: scale(1.08);
-    cursor: url('../models/custom/pickaxe_cursor.png'), auto;
+    /* Caminho corrigido para o cursor */
+    cursor: url('models/custom/pickaxe_cursor.png'), auto;
 }
 
 .ore-click-zone:active .ore-pixel-art-image {
@@ -236,7 +238,8 @@ body {
 }
 
 .wheel-menu-segment {
-    cursor: url('../models/custom/point_cursor.png'), auto;
+    /* Caminho corrigido para o cursor */
+    cursor: url('models/custom/point_cursor.png'), auto;
 }
 
 .segment-background-shape {
@@ -287,7 +290,6 @@ body {
     fill: var(--color-text-muted);
     transition: fill 0.25s;
 }
-
 
 .wheel-menu-segment.active .segment-title-text {
     fill: #FFFFFF;
