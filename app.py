@@ -25,30 +25,51 @@ def health():
 
 @app.route('/mine', methods=['POST'])
 def mine():
-    damage = 1
+    
+    if game_state["current_health"] is None:
+        return '', 204
+    
+    damage = 5
     game_state["current_health"] -= damage
 
     if game_state["current_health"] <= 0:
         game_state["cash"] += game_state["ore_reward"]
-        
-        new_ore = generate_ore()
-        
-        game_state["max_health"] = new_ore._health
-        game_state["current_health"] = new_ore._health
-        game_state["ore_name"] = new_ore._name
-        game_state["ore_reward"] = new_ore._cash
-        game_state["ore_image"] = new_ore._image
+        game_state["current_health"] = None
+
+        return f'''
+        <span id="money-display" hx-swap-oob="true">{game_state["cash"]}</span>
+        <div id="health-progress" class="health-bar-progress" style="width: 0%;" hx-swap-oob="true"></div>
+        <h2 id="ore-name" class="ore-display-name" hx-swap-oob="true">BROKEN!</h2>
+        <img id="ore-image" src="/static/{game_state["ore_image"]}" 
+             class="ore-pixel-art-image ore-broken" 
+             hx-get="/respawn" 
+             hx-trigger="load delay:0.5s" 
+             hx-swap="outerHTML" 
+             hx-swap-oob="true">
+        ''' 
+    
+    health_percent = (game_state["current_health"] / game_state["max_health"]) * 100
+    return f'<div id="health-progress" class="health-bar-progress" style="width: {health_percent}%;" hx-swap-oob="true"></div>'
+
+
+@app.route('/respawn', methods=['GET'])
+def respawn_ore():
+    new_ore = generate_ore()
+
+    game_state["max_health"] = new_ore._health
+    game_state["current_health"] = new_ore._health
+    game_state["ore_name"] = new_ore._name
+    game_state["ore_reward"] = new_ore._cash
+    game_state["ore_image"] = new_ore._image
 
     health_percent = (game_state["current_health"] / game_state["max_health"]) * 100
 
     return f'''
-    <div id="health-progress" hx-get="/health" hx-trigger="load" hx-swap="outerHTML"></div>
-    
-    <span id="money-display" hx-swap-oob="true">{game_state["cash"]}</span>
-    
     <h2 id="ore-name" class="ore-display-name" hx-swap-oob="true">{game_state["ore_name"]}</h2>
     
-    <img id="ore-image" src="/static/{game_state["ore_image"]}" alt="{game_state["ore_name"]}" class="ore-pixel-art-image" hx-swap-oob="true">
+    <div id="health-progress" class="health-bar-progress" style="width: {health_percent}%;" hx-swap-oob="true"></div>
+    
+    <img id="ore-image" src="/static/{game_state["ore_image"]}" alt="{game_state["ore_name"]}" class="ore-pixel-art-image ore-respawn">
     '''
 
 if __name__ == '__main__':
