@@ -5,12 +5,11 @@ app = Flask(__name__)
 
 initial_ore = generate_ore()
 
-# Estado do jogo mantido em memória
 game_state = {
     "money": 0,
+    "ore_name": initial_ore["name"],
     "max_health": initial_ore["health"],
     "current_health": initial_ore["health"],
-    "ore_name": initial_ore["name"],
     "ore_reward": initial_ore["cash"],
     "ore_image": initial_ore["image"]
 }
@@ -19,7 +18,6 @@ game_state = {
 def index():
     return render_template('index.html', money=game_state["money"])
 
-# Nova rota que renderiza a barra de vida sem dar erro no editor HTML
 @app.route('/health')
 def health():
     health_percent = (game_state["current_health"] / game_state["max_health"]) * 100
