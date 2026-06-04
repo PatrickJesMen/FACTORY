@@ -6,46 +6,43 @@ app = Flask(__name__)
 initial_ore = generate_ore()
 
 game_state = {
-    "money": 0,
-    "ore_name": initial_ore["name"],
-    "max_health": initial_ore["health"],
-    "current_health": initial_ore["health"],
-    "ore_reward": initial_ore["cash"],
-    "ore_image": initial_ore["image"]
+    "cash": 0,
+    "max_health": initial_ore._health,
+    "current_health": initial_ore._health,
+    "ore_name": initial_ore._name,
+    "ore_reward": initial_ore._cash,
+    "ore_image": initial_ore._image
 }
 
 @app.route('/')
 def index():
-    return render_template('index.html', money=game_state["money"])
+    return render_template('index.html', state=game_state)
 
 @app.route('/health')
 def health():
     health_percent = (game_state["current_health"] / game_state["max_health"]) * 100
-    return f'<div id="health-progress" class="health-bar-progress" style="width: {health_percent}%;"></div>'
+    return f'<div id="health-progress" hx-get="/health" hx-trigger="load" hx-swap="outerHTML" class="health-bar-progress" style="width: {health_percent}%;"></div>'
 
 @app.route('/mine', methods=['POST'])
 def mine():
-    damage = 20 
+    damage = 1
     game_state["current_health"] -= damage
 
     if game_state["current_health"] <= 0:
-        game_state["money"] += game_state["ore_reward"]
-        game_state["current_health"] = game_state["max_health"]
-
-
+        game_state["cash"] += game_state["ore_reward"]
+        
         new_ore = generate_ore()
-
-        game_state["max_health"] = new_ore["health"]
-        game_state["current_health"] = new_ore["health"]
-        game_state["ore_name"] = new_ore["name"]
-        game_state["ore_reward"] = new_ore["cash"]
-        game_state["ore_image"] = new_ore["image"]
-
+        
+        game_state["max_health"] = new_ore._health
+        game_state["current_health"] = new_ore._health
+        game_state["ore_name"] = new_ore._name
+        game_state["ore_reward"] = new_ore._cash
+        game_state["ore_image"] = new_ore._image
 
     health_percent = (game_state["current_health"] / game_state["max_health"]) * 100
 
     return f'''
-    <div id="health-progress" class="health-bar-progress" style="width: {health_percent}%;"></div>
+    <div id="health-progress" hx-get="/health" hx-trigger="load" hx-swap="outerHTML"></div>
     
     <span id="money-display" hx-swap-oob="true">{game_state["cash"]}</span>
     

@@ -17,7 +17,7 @@
     <div class="money-status-bar">
         <span class="money-currency-icon">$</span>
         <span id="money-display">
-            {{ money }}
+            {{ state.cash }}
         </span>
     </div>
 
@@ -115,14 +115,14 @@
         </div>
 
         <div class="center-mining-area">
-            <h2 class="ore-display-name">Stone</h2>
+            <h2 id="ore-name" class="ore-display-name">{{ state.ore_name }}</h2>
             
             <div class="ore-click-zone" hx-post="/mine" hx-swap="none">
-                <img src="{{ url_for('static', filename='models/ores/stone.png') }}" alt="Stone" class="ore-pixel-art-image">
+                <img id="ore-image" src="{{ url_for('static', filename=state.ore_image) }}" alt="Ore" class="ore-pixel-art-image">
             </div>
 
             <div class="health-bar-track">
-                <div id="health-progress" hx-get="/health" hx-trigger="load" hx-swap="outerHTML"></div>
+                <div id="health-progress" hx-get="/health" hx-trigger="load" hx-swap="outerHTML">{{health_percent}}</div>
             </div>
         </div>
 
