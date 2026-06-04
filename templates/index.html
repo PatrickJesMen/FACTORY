@@ -16,7 +16,7 @@
 <main class="game-main-container">
     <div class="money-status-bar">
         <span class="money-currency-icon">$</span>
-        <span hx-get="/tick" hx-trigger="every 1s" hx-swap="innerHTML">
+        <span id="money-display">
             {{ money }}
         </span>
     </div>
