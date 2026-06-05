@@ -51,7 +51,6 @@ def mine():
     health_percent = (game_state["current_health"] / game_state["max_health"]) * 100
     return f'<div id="health-progress" class="health-bar-progress" style="width: {health_percent}%;" hx-swap-oob="true"></div>'
 
-
 @app.route('/respawn', methods=['GET'])
 def respawn_ore():
     new_ore = generate_ore()
@@ -71,6 +70,8 @@ def respawn_ore():
     
     <img id="ore-image" src="/static/{game_state["ore_image"]}" alt="{game_state["ore_name"]}" class="ore-pixel-art-image ore-respawn">
     '''
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

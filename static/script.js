@@ -1,7 +1,7 @@
 const wg = document.getElementById('wg');
 const slices = document.querySelectorAll('.sg');
 const contents = document.querySelectorAll('.segment-icon-content');
-let angle = 0;
+let angle = -60; // Initial angle matches the center of the first segment
 
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
 let actx;
@@ -23,7 +23,8 @@ function sel(idx) {
     const cur = document.querySelector('.sg.active');
     if (cur && parseInt(cur.dataset.i) === idx) return;
 
-    const targets = [0, -90, -180, -270];
+    // Center targets for the 3 segments
+    const targets = [-45, -135, -225, -315];
     let ta = targets[idx];
     let d = ta - (angle % 360);
     if (d > 180) d -= 360;
@@ -36,7 +37,6 @@ function sel(idx) {
     contents.forEach(c => {
         const cx = c.getAttribute('data-cx');
         const cy = c.getAttribute('data-cy');
-        // Mantém os ícones e o texto na orientação correta enquanto a roda gira
         c.setAttribute('transform', `rotate(${-angle}, ${cx}, ${cy})`);
     });
 
@@ -47,5 +47,15 @@ function sel(idx) {
     const next = document.querySelector(`.sg[data-i="${idx}"]`);
     if (next) {
         next.classList.add('active');
+    }
+
+    // Toggle corresponding content panels
+    document.querySelectorAll('.content-panel').forEach(p => {
+        p.classList.add('hidden');
+    });
+    
+    const activePanel = document.getElementById(`panel-${idx}`);
+    if (activePanel) {
+        activePanel.classList.remove('hidden');
     }
 }
